@@ -8,6 +8,7 @@ import JobTracker from './customer/JobTracker';
 import ReviewPage from './customer/ReviewPage';
 import JobRequests from './artisan/JobRequests';
 import ArtisanJobTracker from './artisan/JobTracker';
+import Splash from './Splash';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/review/:artisanId" element={<ReviewPage />} />
         <Route path="/artisan/job-requests" element={<JobRequests />} />
         <Route path="/artisan/job-tracker" element={<ArtisanJobTracker />} />
+        <Route path="/welcome" element={<Splash />} />
       </Routes>
     </Router>
   );
