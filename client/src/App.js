@@ -1,28 +1,26 @@
-// client/src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import React, { useEffect, useState } from 'react';
+// ✅ ROUTE COMPONENTS
+import ArtisanList from './customer/ArtisanList';
+import ArtisanProfile from './customer/ArtisanProfile';
+import JobTracker from './customer/JobTracker';
+import ReviewPage from './customer/ReviewPage';
+import JobRequests from './artisan/JobRequests';
+import ArtisanJobTracker from './artisan/JobTracker';
 
 function App() {
-  const [message, setMessage] = useState('Loading from backend...');
-
-  useEffect(() => {
-    // This will run once the page loads
-    fetch('http://localhost:5000/')
-      .then(res => res.text())
-      .then(data => setMessage(data))
-      .catch(err => {
-        console.error('Error connecting to backend:', err);
-        setMessage('❌ Failed to connect to backend.');
-      });
-  }, []);
-
   return (
-    <div style={{ padding: "2rem", fontFamily: "Arial" }}>
-      <h1>🛠️ FixItNow – Customer Homepage</h1>
-      <p>Frontend is working.</p>
-      <hr />
-      <p><strong>Backend says:</strong> {message}</p>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<ArtisanList />} />
+        <Route path="/artisan/:id" element={<ArtisanProfile />} />
+        <Route path="/job-tracker" element={<JobTracker />} />
+        <Route path="/review/:artisanId" element={<ReviewPage />} />
+        <Route path="/artisan/job-requests" element={<JobRequests />} />
+        <Route path="/artisan/job-tracker" element={<ArtisanJobTracker />} />
+      </Routes>
+    </Router>
   );
 }
 
