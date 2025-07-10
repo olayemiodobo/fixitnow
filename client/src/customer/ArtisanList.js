@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ NEW: for clicking cards
+import { useNavigate } from 'react-router-dom'; // use for clicking cards
 
 const cardStyle = {
   border: '1px solid #ddd',
@@ -8,7 +8,7 @@ const cardStyle = {
   margin: '1rem',
   boxShadow: '0 0 10px rgba(0,0,0,0.1)',
   width: '250px',
-  cursor: 'pointer' // ✅ NEW: pointer on hover
+  cursor: 'pointer' //pointer on hover
 };
 
 const gridStyle = {
@@ -53,20 +53,41 @@ function ArtisanList() {
   const [currentPage, setCurrentPage] = useState(1);
   const artisansPerPage = 4;
 
-  const navigate = useNavigate(); // ✅ NEW: to navigate on card click
+  const navigate = useNavigate(); // NEW: to navigate on card click
 
-  useEffect(() => {
-    fetch('http://localhost:5000/api/artisans')
-      .then(res => res.json())
-      .then(data => {
-        setArtisans(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('❌ Error fetching artisans:', err);
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch('http://localhost:5000/api/artisans')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setArtisans(data);
+  //       setLoading(false);
+  //     })
+  //     .catch(err => {
+  //       console.error('❌ Error fetching artisans:', err);
+  //       setLoading(false);
+  //     });
+  // }, []);
+useEffect(() => {
+  const fetchCombinedArtisans = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/artisans');
+      const backendArtisans = await res.json();
+
+      const localArtisans = JSON.parse(localStorage.getItem('mockArtisans')) || [];
+      const combined = [...backendArtisans, ...localArtisans];
+
+      setArtisans(combined);
+    } catch (err) {
+      console.error('❌ Error fetching artisans:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchCombinedArtisans();
+}, []);
+
+
 
   const uniqueSkills = [...new Set(artisans.map(a => a.skill).filter(Boolean))].sort();
   const uniqueLocations = [...new Set(artisans.map(a => a.location).filter(Boolean))].sort();
@@ -77,6 +98,7 @@ function ArtisanList() {
       (selectedLocation && a.location === selectedLocation)
     );
   });
+
 
   const totalPages = Math.ceil(filteredArtisans.length / artisansPerPage);
   const indexOfLast = currentPage * artisansPerPage;
@@ -97,7 +119,7 @@ function ArtisanList() {
 
   return (
     <div style={{ padding: '2rem' }}>
-      <h2 style={{ textAlign: 'center' }}>🔧 Find Artisans Near You</h2>
+      <h2 style={{ textAlign: 'center' }}>Find Artisans Near You</h2>
 
       {/* Filters */}
       <div style={filterStyle}>
@@ -146,14 +168,19 @@ function ArtisanList() {
               <div
                 key={artisan.id}
                 style={cardStyle}
-                onClick={() => navigate(`/artisan/${artisan.id}`)} // ✅ NEW: navigate to profile
+                onClick={() => navigate(`/artisan/${artisan.id}`)} // To navigate to profile
               >
                 <img
                   src={artisan.picture}
                   alt={artisan.name}
                   style={{ width: '100%', borderRadius: '8px' }}
                 />
-                <h3>{artisan.name}</h3>
+                <h3>
+  {artisan.name}{' '}
+  {JSON.parse(localStorage.getItem('verifiedArtisans') || '{}')[artisan.id] && (
+    <span title="Verified" style={{ color: 'green', fontSize: '1.2rem' }}>✅</span>
+  )}
+</h3>
                 <p><strong>Skill:</strong> {artisan.skill}</p>
                 <p><strong>Location:</strong> {artisan.location}</p>
                 <p><strong>Rating:</strong> ⭐ {artisan.rating}</p>

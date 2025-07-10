@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import ArtisanLogout from '../components/ArtisanLogout';
+
 
 function ArtisanJobTracker() {
   const [jobs, setJobs] = useState([]);
-  const currentArtisanId = 12; // Simulated artisan ID
+  // const currentArtisanId = 149; // Simulated artisan ID
+  const currentArtisanId = parseInt(localStorage.getItem('loggedInArtisanId'));
 
   useEffect(() => {
     const storedJobs = JSON.parse(localStorage.getItem("jobRequests")) || [];
@@ -13,7 +16,7 @@ function ArtisanJobTracker() {
     );
 
     setJobs(accepted);
-  }, []);
+  }, [currentArtisanId]);
 
   const updateStatus = (index, newStatus) => {
     const storedJobs = JSON.parse(localStorage.getItem("jobRequests")) || [];
@@ -27,10 +30,14 @@ function ArtisanJobTracker() {
       storedJobs[actualIndex].status = newStatus;
       localStorage.setItem("jobRequests", JSON.stringify(storedJobs));
 
+      // const updated = storedJobs.filter(
+      //   job => parseInt(job.artisanId) === currentArtisanId &&
+      //          (storedJobs[actualIndex].status === "Accepted" || storedJobs[actualIndex].status === "Started")
+      // );
       const updated = storedJobs.filter(
-        job => parseInt(job.artisanId) === currentArtisanId &&
-               (storedJobs[actualIndex].status === "Accepted" || storedJobs[actualIndex].status === "Started")
-      );
+  job => parseInt(job.artisanId) === currentArtisanId &&
+         (job.status === "Accepted" || job.status === "Started")
+);
 
       setJobs(updated);
       alert(`Job marked as: ${newStatus}`);
@@ -39,6 +46,9 @@ function ArtisanJobTracker() {
 
   return (
     <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
+      <div style={{ textAlign: 'right' }}>
+  <ArtisanLogout />
+</div>
       <h2>🛠️ Ongoing Jobs</h2>
 
       {jobs.length === 0 ? (

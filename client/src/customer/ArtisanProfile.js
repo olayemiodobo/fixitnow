@@ -8,25 +8,51 @@ function ArtisanProfile() {
   const [jobRequested, setJobRequested] = useState(false);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   fetch(`http://localhost:5000/api/artisans`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       const found = data.find(a => a.id === parseInt(id));
+  //       setArtisan(found);
+
+  //       const unlockedIds = JSON.parse(localStorage.getItem("unlockedArtisans")) || [];
+  //       if (unlockedIds.includes(parseInt(id))) {
+  //         setUnlocked(true);
+  //       }
+
+  //       const jobList = JSON.parse(localStorage.getItem("jobRequests")) || [];
+  //       const alreadyRequested = jobList.find(job => job.artisanId === parseInt(id));
+  //       if (alreadyRequested) {
+  //         setJobRequested(true);
+  //       }
+  //     });
+  // }, [id]);
   useEffect(() => {
-    fetch(`http://localhost:5000/api/artisans`)
-      .then(res => res.json())
-      .then(data => {
-        const found = data.find(a => a.id === parseInt(id));
-        setArtisan(found);
+  const loadArtisan = async () => {
+    const res = await fetch('http://localhost:5000/api/artisans');
+    const backendArtisans = await res.json();
 
-        const unlockedIds = JSON.parse(localStorage.getItem("unlockedArtisans")) || [];
-        if (unlockedIds.includes(parseInt(id))) {
-          setUnlocked(true);
-        }
+    const localArtisans = JSON.parse(localStorage.getItem('mockArtisans')) || [];
+    const allArtisans = [...backendArtisans, ...localArtisans];
 
-        const jobList = JSON.parse(localStorage.getItem("jobRequests")) || [];
-        const alreadyRequested = jobList.find(job => job.artisanId === parseInt(id));
-        if (alreadyRequested) {
-          setJobRequested(true);
-        }
-      });
-  }, [id]);
+    const found = allArtisans.find(a => a.id === parseInt(id));
+    setArtisan(found);
+
+    const unlockedIds = JSON.parse(localStorage.getItem("unlockedArtisans")) || [];
+    if (unlockedIds.includes(parseInt(id))) {
+      setUnlocked(true);
+    }
+
+    const jobList = JSON.parse(localStorage.getItem("jobRequests")) || [];
+    const alreadyRequested = jobList.find(job => job.artisanId === parseInt(id));
+    if (alreadyRequested) {
+      setJobRequested(true);
+    }
+  };
+
+  loadArtisan();
+}, [id]);
+
 
   const handleUnlock = () => {
     alert("✅ Contact unlocked! (Simulated Payment)");
@@ -59,7 +85,13 @@ function ArtisanProfile() {
       <Link to="/" style={{ color: '#007BFF' }}>← Back to List</Link>
       <div style={{ border: '1px solid #ddd', padding: '1rem', borderRadius: '8px' }}>
         <img src={artisan.picture} alt={artisan.name} style={{ width: '100%', borderRadius: '8px' }} />
-        <h2>{artisan.name}</h2>
+        <h2>
+  {artisan.name}{' '}
+  {JSON.parse(localStorage.getItem('verifiedArtisans') || '{}')[artisan.id] && (
+    <span title="Verified" style={{ color: 'green', fontSize: '1.5rem' }}>✅</span>
+  )}
+</h2>
+
         <p><strong>Skill:</strong> {artisan.skill}</p>
         <p><strong>Location:</strong> {artisan.location}</p>
         <p><strong>Rating:</strong> ⭐ {artisan.rating}</p>
@@ -78,7 +110,7 @@ function ArtisanProfile() {
                 🛠️ Request Job
               </button>
             ) : (
-              <p style={{ color: '#28a745' }}>✅ Job already requested</p>
+              <p style={{ color: '#28a745' }}> Job already requested</p>
             )}
           </div>
         ) : (

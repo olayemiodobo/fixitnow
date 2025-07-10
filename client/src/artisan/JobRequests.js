@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import ArtisanLogout from '../components/ArtisanLogout';
 
 function JobRequests() {
   const [jobs, setJobs] = useState([]);
-  const currentArtisanId = 12; // 🧪 Simulate "logged-in" artisan (e.g. Chuka Eze)
+  // const currentArtisanId = 149; // 🧪 Simulate "logged-in" artisan (e.g. Chuka Eze)
+  const currentArtisanId = parseInt(localStorage.getItem('loggedInArtisanId'));
+
 
   useEffect(() => {
     const storedJobs = JSON.parse(localStorage.getItem("jobRequests")) || [];
@@ -14,9 +17,9 @@ function JobRequests() {
     console.log("📦 All Jobs from localStorage:", storedJobs);
     console.log("🧑🏾‍🔧 Current Artisan ID:", currentArtisanId);
     console.log("📬 Filtered My Jobs:", myJobs);
-
+    console.log("🧪 Matching jobs for me:", myJobs);
     setJobs(myJobs);
-  }, []);
+  }, [currentArtisanId]);
 
   const updateJobStatus = (index, status) => {
     const storedJobs = JSON.parse(localStorage.getItem("jobRequests")) || [];
@@ -36,13 +39,20 @@ function JobRequests() {
       setJobs(updated);
 
       alert(`Job has been ${status === 'Accepted' ? 'accepted ✅' : 'rejected ❌'}`);
+      if (status === 'Accepted') {
+  window.location.href = '/artisan/job-tracker';
+}
+
     }
   };
 
   return (
+    
     <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
+      <div style={{ textAlign: 'right' }}>
+  <ArtisanLogout />
+</div>
       <h2>📥 Pending Job Requests</h2>
-
       {jobs.length === 0 ? (
         <p>No new job requests for you right now.</p>
       ) : (

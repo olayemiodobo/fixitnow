@@ -27,7 +27,7 @@ const names = [
   "Kenneth Obasi", "Hadiza Aliyu", "Ngozi Akpan", "Femi Ogunleye", "Maryam Danjuma"
 ];
 
-// 👨🏾‍🔧 AI-generated Nigerian face URLs
+//Nigerian face URLs
 const faces = [
   "https://images.generated.photos/uy1cYPWnKYgePtRVm2HbozrcKz1r8Ev8l6jsvXoEyKo/rs:fit:512:512/czM6Ly9pY29uczQxL29iamVjdHMvZDUzNjk4LmpwZw.jpg",
   "https://images.generated.photos/v7NmVvfZ6twZDWnVdAGa2dDYZsE7Lo_TPlIhX8LSklw/rs:fit:512:512/czM6Ly9pY29uczQxL29iamVjdHMvZDViYTI3LmpwZw.jpg",

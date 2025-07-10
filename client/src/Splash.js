@@ -3,6 +3,21 @@ import { useNavigate } from 'react-router-dom';
 
 function Splash() {
   const navigate = useNavigate();
+  const artisanId = localStorage.getItem('loggedInArtisanId');
+
+  const handleArtisanClick = () => {
+    // if (artisanId) {
+    //   navigate('/artisan/job-requests');
+    // } else {
+    //   navigate('/artisan-auth'); // Unified login + signup
+    // }
+  navigate('/artisan-auth');  // always go to login/signup
+
+  };
+
+  const handleContinueAsArtisan = () => {
+    navigate('/artisan/job-requests');
+  };
 
   return (
     <div style={{
@@ -20,8 +35,9 @@ function Splash() {
         Get trusted artisans near you — fast.
       </p>
 
+      {/* Customer button */}
       <button
-        onClick={() => navigate('/')}
+        onClick={() => navigate('/ArtisanList')}
         style={{
           padding: '0.8rem 1.5rem',
           fontSize: '1rem',
@@ -36,8 +52,9 @@ function Splash() {
         🔍 Find an Artisan
       </button>
 
+      {/* Artisan Onboarding */}
       <button
-        onClick={() => navigate('/artisan/job-requests')}
+        onClick={handleArtisanClick}
         style={{
           padding: '0.8rem 1.5rem',
           fontSize: '1rem',
@@ -45,11 +62,30 @@ function Splash() {
           color: '#fff',
           border: 'none',
           borderRadius: '8px',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          marginBottom: '1rem'
         }}
       >
         🧑🏾‍🔧 Become an Artisan
       </button>
+
+      {/* Only show if artisan is logged in */}
+      {artisanId && (
+        <button
+          onClick={handleContinueAsArtisan}
+          style={{
+            padding: '0.8rem 1.5rem',
+            fontSize: '1rem',
+            backgroundColor: '#ffc107',
+            color: '#333',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: 'pointer'
+          }}
+        >
+          🔁 Continue as Artisan #{artisanId}
+        </button>
+      )}
     </div>
   );
 }
