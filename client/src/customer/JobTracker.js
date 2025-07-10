@@ -33,7 +33,7 @@ function JobTracker() {
               <p><strong>Status:</strong> {job.status}</p>
               <p><strong>Time:</strong> {new Date(job.timestamp).toLocaleString()}</p>
 
-              {/* ✅ NEW: Cancel request option for PENDING */}
+              {/* Cancel request option for PENDING */}
               {job.status === 'Pending' && (
                 <button
                   onClick={() => handleCancel(i)}
@@ -50,9 +50,9 @@ function JobTracker() {
                 </Link>
               )}
 
-              {/* ℹ️ Show message if job was rejected */}
+              {/* Show message if job was rejected */}
               {job.status === 'Rejected by Artisan' && (
-                <p style={{ color: '#cc0000' }}>⚠️ This job was rejected by the artisan.</p>
+                <p style={{ color: '#cc0000' }}>⚠️This job was rejected by the artisan.</p>
               )}
             </li>
           ))}

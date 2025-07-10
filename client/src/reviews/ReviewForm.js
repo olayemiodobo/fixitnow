@@ -28,7 +28,7 @@ function ReviewForm() {
     };
 
     localStorage.setItem("artisanReviews", JSON.stringify(updated));
-    alert("✅ Review submitted!");
+    alert("REVIEW SUBMITTED!");
 
     navigate(`/artisan/${artisanId}`);
   };

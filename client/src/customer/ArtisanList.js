@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // use for clicking cards
+import { useNavigate } from 'react-router-dom'; // I can use for clicking cards
 
 const cardStyle = {
   border: '1px solid #ddd',
@@ -53,20 +53,8 @@ function ArtisanList() {
   const [currentPage, setCurrentPage] = useState(1);
   const artisansPerPage = 4;
 
-  const navigate = useNavigate(); // NEW: to navigate on card click
+  const navigate = useNavigate(); 
 
-  // useEffect(() => {
-  //   fetch('http://localhost:5000/api/artisans')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setArtisans(data);
-  //       setLoading(false);
-  //     })
-  //     .catch(err => {
-  //       console.error('❌ Error fetching artisans:', err);
-  //       setLoading(false);
-  //     });
-  // }, []);
 useEffect(() => {
   const fetchCombinedArtisans = async () => {
     try {

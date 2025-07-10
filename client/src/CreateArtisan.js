@@ -31,13 +31,13 @@ function CreateArtisan() {
     localStorage.setItem('mockArtisans', JSON.stringify(updated));
     localStorage.setItem('loggedInArtisanId', newId);
 
-    alert(`✅ Account created! Your Artisan ID is ${newId}`);
+    alert(`Account created! Your Artisan ID is ${newId}`);
     navigate('/artisan/job-requests');
   };
 
   return (
     <div style={{ maxWidth: '500px', margin: '2rem auto', padding: '1rem' }}>
-      <h2>🆕 Create Artisan Account</h2>
+      <h2>Create Artisan Account</h2>
       <form onSubmit={handleCreate}>
         <input placeholder="Full Name" value={newName} onChange={e => setNewName(e.target.value)} required /><br />
         <input placeholder="Skill" value={newSkill} onChange={e => setNewSkill(e.target.value)} required /><br />

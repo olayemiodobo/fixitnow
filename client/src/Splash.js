@@ -6,12 +6,7 @@ function Splash() {
   const artisanId = localStorage.getItem('loggedInArtisanId');
 
   const handleArtisanClick = () => {
-    // if (artisanId) {
-    //   navigate('/artisan/job-requests');
-    // } else {
-    //   navigate('/artisan-auth'); // Unified login + signup
-    // }
-  navigate('/artisan-auth');  // always go to login/signup
+  navigate('/artisan-auth');  // this is to always go to login/signup
 
   };
 
@@ -32,7 +27,7 @@ function Splash() {
     }}>
       <h1 style={{ fontSize: '3rem', marginBottom: '0.5rem', color: '#222' }}>🛠️ FixItNow</h1>
       <p style={{ fontSize: '1.2rem', color: '#555', marginBottom: '2rem' }}>
-        Get trusted artisans near you — fast.
+        Get TRUSTED artisans near you FAST.
       </p>
 
       {/* Customer button */}
@@ -49,7 +44,7 @@ function Splash() {
           cursor: 'pointer'
         }}
       >
-        🔍 Find an Artisan
+        Find an Artisan
       </button>
 
       {/* Artisan Onboarding */}
@@ -66,10 +61,10 @@ function Splash() {
           marginBottom: '1rem'
         }}
       >
-        🧑🏾‍🔧 Become an Artisan
+        Become an Artisan
       </button>
 
-      {/* Only show if artisan is logged in */}
+      {/* Only show this kini if artisan is logged in */}
       {artisanId && (
         <button
           onClick={handleContinueAsArtisan}
@@ -83,7 +78,7 @@ function Splash() {
             cursor: 'pointer'
           }}
         >
-          🔁 Continue as Artisan #{artisanId}
+          Continue as Artisan #{artisanId}
         </button>
       )}
     </div>

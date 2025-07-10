@@ -8,25 +8,6 @@ function ArtisanProfile() {
   const [jobRequested, setJobRequested] = useState(false);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   fetch(`http://localhost:5000/api/artisans`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       const found = data.find(a => a.id === parseInt(id));
-  //       setArtisan(found);
-
-  //       const unlockedIds = JSON.parse(localStorage.getItem("unlockedArtisans")) || [];
-  //       if (unlockedIds.includes(parseInt(id))) {
-  //         setUnlocked(true);
-  //       }
-
-  //       const jobList = JSON.parse(localStorage.getItem("jobRequests")) || [];
-  //       const alreadyRequested = jobList.find(job => job.artisanId === parseInt(id));
-  //       if (alreadyRequested) {
-  //         setJobRequested(true);
-  //       }
-  //     });
-  // }, [id]);
   useEffect(() => {
   const loadArtisan = async () => {
     const res = await fetch('http://localhost:5000/api/artisans');

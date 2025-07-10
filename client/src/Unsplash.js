@@ -7,9 +7,9 @@ function Unsplash() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate('/welcome');
-    }, 3000); // 2 seconds
+    }, 3000); // 3 seconds
 
-    return () => clearTimeout(timer); // Cleanup on unmount
+    return () => clearTimeout(timer); // Cleanup
   }, [navigate]);
 
   return (
@@ -29,7 +29,7 @@ function Unsplash() {
         🛠️ Welcome to <span style={{ color: '#00d1b2' }}>FixItNow</span>
       </h1>
       <p style={{ fontSize: '1.2rem', color: '#ccc' }}>
-        Nigeria’s trusted app for fast, local artisans 🔧⚡
+        Nigeria’s trusted app for fast, local artisans
       </p>
     </div>
   );

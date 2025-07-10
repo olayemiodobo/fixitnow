@@ -21,7 +21,7 @@ function ReviewPage() {
       timestamp: new Date().toISOString()
     });
     localStorage.setItem("artisanReviews", JSON.stringify(reviews));
-    alert("✅ Review submitted!");
+    alert("REVIEW SUBMITTED!");
     navigate('/');
   };
 

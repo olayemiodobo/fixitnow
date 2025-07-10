@@ -10,7 +10,7 @@ function ArtisanLogin() {
     if (!loginId) return alert("Enter your artisan ID");
 
     localStorage.setItem('loggedInArtisanId', loginId);
-    alert("✅ Logged in as artisan #" + loginId);
+    alert("Logged in as artisan #" + loginId);
     navigate('/artisan/job-requests');
   };
 

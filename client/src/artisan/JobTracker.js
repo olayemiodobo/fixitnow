@@ -30,10 +30,6 @@ function ArtisanJobTracker() {
       storedJobs[actualIndex].status = newStatus;
       localStorage.setItem("jobRequests", JSON.stringify(storedJobs));
 
-      // const updated = storedJobs.filter(
-      //   job => parseInt(job.artisanId) === currentArtisanId &&
-      //          (storedJobs[actualIndex].status === "Accepted" || storedJobs[actualIndex].status === "Started")
-      // );
       const updated = storedJobs.filter(
   job => parseInt(job.artisanId) === currentArtisanId &&
          (job.status === "Accepted" || job.status === "Started")

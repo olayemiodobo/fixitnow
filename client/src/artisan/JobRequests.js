@@ -3,7 +3,6 @@ import ArtisanLogout from '../components/ArtisanLogout';
 
 function JobRequests() {
   const [jobs, setJobs] = useState([]);
-  // const currentArtisanId = 149; // 🧪 Simulate "logged-in" artisan (e.g. Chuka Eze)
   const currentArtisanId = parseInt(localStorage.getItem('loggedInArtisanId'));
 
 
@@ -14,10 +13,10 @@ function JobRequests() {
       job => parseInt(job.artisanId) === currentArtisanId && job.status === 'Pending'
     );
 
-    console.log("📦 All Jobs from localStorage:", storedJobs);
-    console.log("🧑🏾‍🔧 Current Artisan ID:", currentArtisanId);
-    console.log("📬 Filtered My Jobs:", myJobs);
-    console.log("🧪 Matching jobs for me:", myJobs);
+    console.log(" All Jobs from localStorage:", storedJobs);
+    console.log(" Current Artisan ID:", currentArtisanId);
+    console.log(" Filtered My Jobs:", myJobs);
+    console.log(" Matching jobs for me:", myJobs);
     setJobs(myJobs);
   }, [currentArtisanId]);
 
