@@ -17,7 +17,7 @@ function ArtisanLogin() {
 
   return (
     <div style={{ maxWidth: '400px', margin: '2rem auto', textAlign: 'center' }}>
-      <h2>🧑🏾‍🔧 Artisan Login</h2>
+      <h2>Artisan Login</h2>
       <form onSubmit={handleLogin}>
         <input
           type="number"

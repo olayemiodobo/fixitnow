@@ -1,3 +1,4 @@
+// 
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -6,7 +7,17 @@ function JobTracker() {
 
   useEffect(() => {
     const storedJobs = JSON.parse(localStorage.getItem("jobRequests")) || [];
-    setJobs(storedJobs);
+
+    // ✅ Exclude already reviewed jobs
+    const reviews = JSON.parse(localStorage.getItem("artisanReviews")) || [];
+    const reviewedIds = reviews.map(r => `${r.artisanId}_${r.timestamp}`);
+
+    const filtered = storedJobs.filter(job => {
+      const uniqueKey = `${job.artisanId}_${job.timestamp}`;
+      return !reviewedIds.includes(uniqueKey);
+    });
+
+    setJobs(filtered);
   }, []);
 
   const handleCancel = (indexToRemove) => {
@@ -33,7 +44,6 @@ function JobTracker() {
               <p><strong>Status:</strong> {job.status}</p>
               <p><strong>Time:</strong> {new Date(job.timestamp).toLocaleString()}</p>
 
-              {/* Cancel request option for PENDING */}
               {job.status === 'Pending' && (
                 <button
                   onClick={() => handleCancel(i)}
@@ -43,14 +53,12 @@ function JobTracker() {
                 </button>
               )}
 
-              {/* ✅ Review option if job completed */}
               {job.status === 'Completed' && (
-                <Link to={`/review/${job.artisanId}`} style={{ color: '#007bff' }}>
+                <Link to={`/review/${job.artisanId}?ts=${job.timestamp}`} style={{ color: '#007bff' }}>
                   ✍️ Leave a Review
                 </Link>
               )}
 
-              {/* Show message if job was rejected */}
               {job.status === 'Rejected by Artisan' && (
                 <p style={{ color: '#cc0000' }}>⚠️This job was rejected by the artisan.</p>
               )}

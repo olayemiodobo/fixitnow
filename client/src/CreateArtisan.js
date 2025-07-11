@@ -31,7 +31,7 @@ function CreateArtisan() {
     localStorage.setItem('mockArtisans', JSON.stringify(updated));
     localStorage.setItem('loggedInArtisanId', newId);
 
-    alert(`Account created! Your Artisan ID is ${newId}`);
+    alert(`Account created! Copy your Artisan ID which is ${newId}`);
     navigate('/artisan/job-requests');
   };
 
